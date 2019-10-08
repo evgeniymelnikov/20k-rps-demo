@@ -1,0 +1,21 @@
+server:
+  port: @server.port@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
+---
+spring:
+  profiles: dev
+mongodb:
+  host: localhost
+  database: gps_tracker
+  port: 27018
+
+---
+spring:
+  profiles: dev-docker-compose
+mongodb:
+  host: ${MONGO_HOST}
+  database: ${MONGO_INITDB_DATABASE}
+  port: ${MONGO_PORT}

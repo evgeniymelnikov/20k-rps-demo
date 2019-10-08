@@ -1,0 +1,8 @@
+FROM alpine
+RUN apk --no-cache add apache2-utils \
+	&& cd opt/ && mkdir ab && cd ab/ \
+	&& echo '{ "id": "2a87cc8a-e93b-11e9-81b4-2a2ae2dbcce4", "coordinates": [0, 0] }' >> post.json
+CMD /bin/sh
+
+# after that exec in sh next:
+# ab -n 20000 -c 500 -p /opt/ab/post.json -T 'application/json' host.docker.internal:8081/gps-tracker

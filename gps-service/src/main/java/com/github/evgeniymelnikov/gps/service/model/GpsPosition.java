@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.UUID;
 
 @Document
@@ -21,5 +22,5 @@ public class GpsPosition {
 
     private UUID extId;
 
-    private Point location;
+    private List<Double> coordinates;
 }
