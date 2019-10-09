@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 
 @Configuration
 @EnableReactiveMongoRepositories
-public class MongoDBConfig {
+public class MongoConfig {
 
     @Value("${mongodb.host}")
     private String host;

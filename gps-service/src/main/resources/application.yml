@@ -3,7 +3,12 @@ server:
 spring:
   profiles:
     active: @spring.profiles.active@
+mongodb:
+  insert_bulk_size: 20000
 
+logging:
+  level:
+    com.github.evgeniymelnikov: debug
 ---
 spring:
   profiles: dev

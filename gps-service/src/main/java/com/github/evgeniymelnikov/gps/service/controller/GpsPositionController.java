@@ -1,13 +1,14 @@
 package com.github.evgeniymelnikov.gps.service.controller;
 
-import com.github.evgeniymelnikov.gps.service.dto.GpsPositionInfo;
 import com.github.evgeniymelnikov.gps.service.model.GpsPosition;
 import com.github.evgeniymelnikov.gps.service.repository.GpsPositionRepository;
+import com.github.evgeniymelnikov.gps.service.service.GpsPositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -16,15 +17,14 @@ import java.util.UUID;
 public class GpsPositionController {
 
     private final GpsPositionRepository gpsPositionRepository;
+    private final GpsPositionService gpsPositionService;
 
-    // todo: consider adding based on bundles
-    // todo: mapping by jackson is unnecessarily, have to send raw data
     @PostMapping
-    public void add(@RequestBody GpsPositionInfo gpsPositionInfo) {
-        if (gpsPositionInfo == null || gpsPositionInfo.getExtId() == null || gpsPositionInfo.getCoordinates() == null) {
+    public void add(@RequestBody Map<String, Object> gpsPositionInfo) {
+        if (gpsPositionInfo == null || gpsPositionInfo.isEmpty()) {
             return;
         }
-        gpsPositionRepository.save(GpsPositionInfo.map(gpsPositionInfo)).subscribe();
+        gpsPositionService.addToQueue(gpsPositionInfo);
     }
 
     @GetMapping("/{extId}")

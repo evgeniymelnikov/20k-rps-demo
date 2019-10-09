@@ -9,13 +9,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 import java.util.UUID;
 
-@Document
+@Document(GpsPosition.COLLECTION_NAME)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 public class GpsPosition {
+
+    public static final String COLLECTION_NAME = "gpsPosition";
 
     @Id
     private ObjectId id;
