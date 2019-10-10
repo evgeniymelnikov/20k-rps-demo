@@ -19,16 +19,16 @@ services:
     restart: always
     links:
         - db
-  ab:
-    image: jordi/ab:latest
-    copy: './ab/ /opt/ab/'
-    volumes:
-        - /opt/ab/
-    working_dir: '/opt/ab/'
-    entrypoint: 
-        - '/usr/bin/ab ab -T application/json -p ./post.json -v 2 http://gps-service/gps-tracker'
-    links:
-        - gps-service
+#  load-testing:
+#    image: jordi/ab:latest
+#    copy: './ab/ /opt/ab/'
+#    volumes:
+#        - /opt/ab/
+#    working_dir: '/opt/ab/'
+#    entrypoint:
+#        - '/usr/bin/ab ab -T application/json -p ./post.json -v 2 http://gps-service/gps-tracker'
+#    links:
+#        - gps-service
     
            
         

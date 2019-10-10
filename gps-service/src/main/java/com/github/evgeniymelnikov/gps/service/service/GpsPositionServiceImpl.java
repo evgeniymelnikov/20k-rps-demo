@@ -53,7 +53,7 @@ public class GpsPositionServiceImpl implements GpsPositionService {
                     mongoCollection.bulkWrite(copy).subscribe(new BaseSubscriber<BulkWriteResult>() {
                         @Override
                         protected void hookOnComplete() {
-                            log.debug("Обработано: " + ++bulkOperationCount);
+                            log.debug("Processed: " + ++bulkOperationCount * bulkSize);
                             super.hookOnComplete();
                         }
                     });
