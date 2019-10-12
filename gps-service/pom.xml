@@ -59,7 +59,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <server.port>8081</server.port>
+                <server.port>8090</server.port>
                 <spring.profiles.active>dev</spring.profiles.active>
             </properties>
         </profile>

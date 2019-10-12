@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class GpsPositionServiceImpl implements GpsPositionService {
+public class GpsPositionProcessorImpl implements GpsPositionProcessor {
 
     private final ConcurrentLinkedQueue<Document> queue = new ConcurrentLinkedQueue<>();
     private int bulkOperationCount;
