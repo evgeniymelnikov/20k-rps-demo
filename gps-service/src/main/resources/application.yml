@@ -15,7 +15,7 @@ spring:
 mongodb:
   host: localhost
   database: gps_tracker
-  port: 27018
+  port: 27020
 
 ---
 spring:
