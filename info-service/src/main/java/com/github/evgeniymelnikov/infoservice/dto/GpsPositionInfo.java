@@ -1,4 +1,4 @@
-package com.github.evgeniymelnikov.gps.service.dto;
+package com.github.evgeniymelnikov.infoservice.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +12,8 @@ import java.util.UUID;
 public class GpsPositionInfo {
 
     private UUID extId;
+
     private List<Double> coordinates;
+
     private Date createTime;
 }

@@ -1,4 +1,4 @@
-package com.evgeniymelnikov.infoservice.configuration;
+package com.github.evgeniymelnikov.infoservice.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/perform_login")
-                .failureUrl("/looool")
+                .failureUrl("/access_denied.html")
                 .defaultSuccessUrl("/index.html", true)
                 .usernameParameter("username").passwordParameter("password").permitAll()
                 .and()

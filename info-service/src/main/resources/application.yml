@@ -1,0 +1,24 @@
+server:
+  port: @server.port@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
+logging:
+  level:
+    com.github.evgeniymelnikov: debug
+---
+spring:
+  profiles: dev
+gps:
+  service:
+    url: localhost
+    port: 8090
+
+---
+spring:
+  profiles: dev-docker-compose
+gps:
+  service:
+    url: ${GPS_SERVICE_URL}
+    port: ${GPS_SERVICE_PORT}

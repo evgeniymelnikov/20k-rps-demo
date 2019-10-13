@@ -66,14 +66,14 @@
 <p class="browserupgrade">Вы используете <strong>устаревший</strong> браузер. Пожалуйста, <a
         href="http://browsehappy.com/">обновите ваш браузер</a>, для использования всех возможностей приложения.</p>
 <![endif]-->
-<form class="filter_container rounded" id="filter_form">
+<form class="filter_container rounded" id="filter_form" method="post">
     <div class="form-group">
         <label for="inputId">VIN</label>
-        <input type="text" class="form-control" id="inputId" placeholder="4USBT53544LT26841">
+        <input type="text" class="form-control" id="inputId" name="vinCode" placeholder="4USBT53544LT26841">
     </div>
     <div class="form-group">
         <label for="inputAutoNumber">Номер автомобиля</label>
-        <input type="text" class="form-control" id="inputAutoNumber" placeholder="P509XP59">
+        <input type="text" class="form-control" id="inputAutoNumber" name="number" placeholder="P509XP59">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -89,21 +89,28 @@
         crossorigin="anonymous"></script>
 <script>
     // will be replaced by docker-swarm
-    const url = "!!!info_service_url-replacement!!!";
     let result = [];
-    $("#filter_form").submit((event) => {
+    $("div#filter_result").on("click", "div.result__item_container", (event) => {
+        $.get(`/${event.getAttribute("id")}/info`, (data) => {
+            alert("Получены следующие данные: " + data);
+        })
+    });
+    const form = $("#filter_form");
+    form.submit((event) => {
+        const data = {};
+        form.serializeArray().forEach(keyVal => data[keyVal.name] = keyVal.value);
         event.preventDefault();
-        $.post(url + "/info", (data) => {
-            if (data) {
-                result = data;
+        $.post("/info", data, (response) => {
+            if (response) {
+                result = response;
             }
             $("#filter_result").empty();
             result.forEach((elemInfo) => {
                 $("#filter_result").appendChild(
-                    `<div class="result__item_container">
-                    <div><span class="font-weight-bold">VIN: </span><span>${elemInfo.vinCode}</span></div>
-                    <div><span class="font-weight-bold">Номер автомобиля: </span><span>${elemInfo.number}</span></div>
-                </div>`);
+                    `<div class="result__item_container" id="${elemInfo.id}">
+                        <div><span class="font-weight-bold" >VIN: </span><span>${elemInfo.vinCode}</span></div>
+                        <div><span class="font-weight-bold">Номер автомобиля: </span><span>${elemInfo.number}</span></div>
+                    </div>`);
             });
         });
     });
