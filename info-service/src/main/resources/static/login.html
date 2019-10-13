@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8"/>
+    <title>Вход в систему</title>
+    <style>
+        body {
+            background-color: gray;
+            display: grid;
+            grid-template-rows: 30% 1fr 30%;
+            grid-template-columns: 30% 1fr 30%;
+            grid-gap: 2vw;
+        }
+
+        body > div form {
+            font-size: 5vw;
+            padding: .5em;
+
+        }
+
+        body > form {
+            background: white;
+            text-align: center;
+            height: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+
+        form > div {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<!--[if lt IE 9]>
+<p class="browserupgrade">Вы используете <strong>устаревший</strong> браузер. Пожалуйста, <a
+        href="http://browsehappy.com/">обновите ваш браузер</a>, для использования всех возможностей приложения.</p>
+<![endif]-->
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<form id="login_form" class="rounded" method="post" action="/perform_login">
+    <div class="form-group" style="margin-top: 25px;">
+        <label for="inputUsername">Логин</label>
+        <input type="text" class="form-control" id="inputUsername" name="username" placeholder="some_username">
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Пароль</label>
+        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="******">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

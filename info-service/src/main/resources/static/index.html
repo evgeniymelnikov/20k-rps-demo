@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8"/>
+    <title>Gps трекер</title>
+    <style>
+        body {
+            background-color: gray;
+        }
+
+        form.filter_container, div#filter_result {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+
+            width: 60%;
+            min-width: 600px;
+
+            background-color: white;
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        form#filter_form {
+            height: 15%;
+            min-height: 200px;
+            margin: 5% auto auto;
+        }
+
+        form.filter_container > div {
+            width: 45%;
+            margin: auto 2%;
+        }
+
+        form.filter_container > button {
+            width: 10%;
+            height: 50px;
+            align-self: self-end;
+            margin-right: 3%;
+            margin-left: auto;
+        }
+
+        #filter_result {
+            margin: 2% auto auto;
+        }
+
+        .result__item_container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+        }
+
+        .result__item_container > div {
+            margin: 25px 180px auto;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<!--[if lt IE 9]>
+<p class="browserupgrade">Вы используете <strong>устаревший</strong> браузер. Пожалуйста, <a
+        href="http://browsehappy.com/">обновите ваш браузер</a>, для использования всех возможностей приложения.</p>
+<![endif]-->
+<form class="filter_container rounded" id="filter_form">
+    <div class="form-group">
+        <label for="inputId">VIN</label>
+        <input type="text" class="form-control" id="inputId" placeholder="4USBT53544LT26841">
+    </div>
+    <div class="form-group">
+        <label for="inputAutoNumber">Номер автомобиля</label>
+        <input type="text" class="form-control" id="inputAutoNumber" placeholder="P509XP59">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div id="filter_result">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    // will be replaced by docker-swarm
+    const url = "!!!info_service_url-replacement!!!";
+    let result = [];
+    $("#filter_form").submit((event) => {
+        event.preventDefault();
+        $.post(url + "/info", (data) => {
+            if (data) {
+                result = data;
+            }
+            $("#filter_result").empty();
+            result.forEach((elemInfo) => {
+                $("#filter_result").appendChild(
+                    `<div class="result__item_container">
+                    <div><span class="font-weight-bold">VIN: </span><span>${elemInfo.vinCode}</span></div>
+                    <div><span class="font-weight-bold">Номер автомобиля: </span><span>${elemInfo.number}</span></div>
+                </div>`);
+            });
+        });
+    });
+</script>
+</body>
+</html>
