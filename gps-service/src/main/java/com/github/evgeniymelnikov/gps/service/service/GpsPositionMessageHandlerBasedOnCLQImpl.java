@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class GpsPositionProcessorImpl implements GpsPositionProcessor {
+public class GpsPositionMessageHandlerBasedOnCLQImpl implements GpsPositionMessageHandler {
 
     private final ConcurrentLinkedQueue<Document> queue = new ConcurrentLinkedQueue<>();
     private int bulkOperationCount;
@@ -63,7 +63,7 @@ public class GpsPositionProcessorImpl implements GpsPositionProcessor {
     }
 
     @Override
-    public void addToQueue(Map<String, Object> gpsPositionJson) {
+    public void sendToHandler(Map<String, Object> gpsPositionJson) {
         queue.add(new Document(gpsPositionJson));
     }
 }

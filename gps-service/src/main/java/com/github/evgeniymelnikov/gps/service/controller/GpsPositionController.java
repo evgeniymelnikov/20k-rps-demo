@@ -3,7 +3,7 @@ package com.github.evgeniymelnikov.gps.service.controller;
 import com.github.evgeniymelnikov.gps.service.dto.GpsPositionInfo;
 import com.github.evgeniymelnikov.gps.service.model.GpsPosition;
 import com.github.evgeniymelnikov.gps.service.repository.GpsPositionRepository;
-import com.github.evgeniymelnikov.gps.service.service.GpsPositionProcessor;
+import com.github.evgeniymelnikov.gps.service.service.GpsPositionMessageHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +18,14 @@ import java.util.UUID;
 public class GpsPositionController {
 
     private final GpsPositionRepository gpsPositionRepository;
-    private final GpsPositionProcessor gpsPositionProcessor;
+    private final GpsPositionMessageHandler gpsPositionMessageHandler;
 
     @PostMapping
     public void add(@RequestBody Map<String, Object> gpsPositionInfo) {
         if (gpsPositionInfo == null || gpsPositionInfo.isEmpty()) {
             return;
         }
-        gpsPositionProcessor.addToQueue(gpsPositionInfo);
+        gpsPositionMessageHandler.sendToHandler(gpsPositionInfo);
     }
 
     @GetMapping("/{extId}")
