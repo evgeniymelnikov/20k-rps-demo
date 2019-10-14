@@ -40,14 +40,14 @@ public class MainController {
         );
     }
 
-    @GetMapping("/{id}/gps_position")
+    @GetMapping("/{id}/gps-position")
     public List<GpsPositionInfo> getGpsPosition(@PathVariable final String id) {
         if (!StringUtils.hasText(id)) {
             throw new IllegalArgumentException("Отсутствует id для запроса координат.");
         }
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<GpsPositionInfo>> response = restTemplate.exchange(
-                String.format("http://%s:%d/%s/", gpsServiceUrl, gpsServicePort, id),
+                String.format("http://%s:%d/gps-tracker/%s/", gpsServiceUrl, gpsServicePort, id),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<GpsPositionInfo>>(){});

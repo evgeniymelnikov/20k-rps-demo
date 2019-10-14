@@ -87,33 +87,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script>
-    // will be replaced by docker-swarm
-    let result = [];
-    $("div#filter_result").on("click", "div.result__item_container", (event) => {
-        $.get(`/${event.getAttribute("id")}/info`, (data) => {
-            alert("Получены следующие данные: " + data);
-        })
-    });
-    const form = $("#filter_form");
-    form.submit((event) => {
-        const data = {};
-        form.serializeArray().forEach(keyVal => data[keyVal.name] = keyVal.value);
-        event.preventDefault();
-        $.post("/info", data, (response) => {
-            if (response) {
-                result = response;
-            }
-            $("#filter_result").empty();
-            result.forEach((elemInfo) => {
-                $("#filter_result").appendChild(
-                    `<div class="result__item_container" id="${elemInfo.id}">
-                        <div><span class="font-weight-bold" >VIN: </span><span>${elemInfo.vinCode}</span></div>
-                        <div><span class="font-weight-bold">Номер автомобиля: </span><span>${elemInfo.number}</span></div>
-                    </div>`);
-            });
-        });
-    });
-</script>
+<script src="/js/index_filter.js"></script>
 </body>
 </html>

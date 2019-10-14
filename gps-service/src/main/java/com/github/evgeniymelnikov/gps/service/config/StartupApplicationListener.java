@@ -30,5 +30,11 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
                 )
         );
         gpsPositionRepository.saveAll(gpsPositionList).subscribe();
+//        gpsPositionRepository.findAll(Example.of(new GpsPosition(null, predefinedExtId, null))).subscribe(
+//                (data) -> {
+//                    Date date = data.getId().getDate();
+//                    System.out.println(date);
+//                }
+//        );
     }
 }
