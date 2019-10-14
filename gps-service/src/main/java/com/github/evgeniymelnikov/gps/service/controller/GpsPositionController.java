@@ -1,5 +1,6 @@
 package com.github.evgeniymelnikov.gps.service.controller;
 
+import com.github.evgeniymelnikov.gps.service.dto.GpsPositionInfo;
 import com.github.evgeniymelnikov.gps.service.model.GpsPosition;
 import com.github.evgeniymelnikov.gps.service.repository.GpsPositionRepository;
 import com.github.evgeniymelnikov.gps.service.service.GpsPositionProcessor;
@@ -28,7 +29,8 @@ public class GpsPositionController {
     }
 
     @GetMapping("/{extId}")
-    public Flux<GpsPosition> getByExtId(@PathVariable UUID extId) {
-        return gpsPositionRepository.findAll(Example.of(new GpsPosition(null, extId, null)));
+    public Flux<GpsPositionInfo> getByExtId(@PathVariable UUID extId) {
+        return gpsPositionRepository.findAll(Example.of(new GpsPosition(null, extId, null)))
+                .map(GpsPositionInfo::of);
     }
 }

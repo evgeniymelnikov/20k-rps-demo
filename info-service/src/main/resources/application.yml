@@ -6,7 +6,7 @@ spring:
 
 logging:
   level:
-    com.github.evgeniymelnikov: debug
+    com.github.evgeniymelnikov: info
 ---
 spring:
   profiles: dev
