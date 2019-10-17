@@ -4,7 +4,7 @@ import com.github.evgeniymelnikov.gps.service.dto.GpsPositionInfo;
 import com.github.evgeniymelnikov.gps.service.model.GpsPosition;
 import com.github.evgeniymelnikov.gps.service.repository.GpsPositionRepository;
 import com.github.evgeniymelnikov.gps.service.service.GpsPositionMessageHandler;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -14,11 +14,16 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/gps-tracker")
-@RequiredArgsConstructor
 public class GpsPositionController {
 
     private final GpsPositionRepository gpsPositionRepository;
     private final GpsPositionMessageHandler gpsPositionMessageHandler;
+
+    public GpsPositionController(GpsPositionRepository gpsPositionRepository,
+                                 @Qualifier("gpsPositionHandlerFlux") GpsPositionMessageHandler gpsPositionMessageHandler) {
+        this.gpsPositionRepository = gpsPositionRepository;
+        this.gpsPositionMessageHandler = gpsPositionMessageHandler;
+    }
 
     @PostMapping
     public void add(@RequestBody Map<String, Object> gpsPositionInfo) {
