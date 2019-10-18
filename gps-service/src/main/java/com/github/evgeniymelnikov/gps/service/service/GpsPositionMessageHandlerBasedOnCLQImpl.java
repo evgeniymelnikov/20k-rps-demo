@@ -27,7 +27,7 @@ public class GpsPositionMessageHandlerBasedOnCLQImpl implements GpsPositionMessa
 
     private final ConcurrentLinkedQueue<Document> queue = new ConcurrentLinkedQueue<>();
     private int bulkOperationCount;
-    private final MongoConfig mongoConfig;
+    private final MongoCollection<Document> mongoCollection;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Value("${mongodb.insert_bulk_size}")
@@ -35,7 +35,6 @@ public class GpsPositionMessageHandlerBasedOnCLQImpl implements GpsPositionMessa
 
     @PostConstruct
     public void setUp() {
-        MongoCollection<Document> mongoCollection = mongoConfig.mongoCollectionGpsPosition();
         executorService.submit(() -> {
             final List<WriteModel<Document>> list = new ArrayList<>(bulkSize);
             while (true) {

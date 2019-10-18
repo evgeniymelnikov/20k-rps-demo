@@ -1,11 +1,9 @@
 package com.github.evgeniymelnikov.gps.service.controller;
 
 import com.github.evgeniymelnikov.gps.service.dto.GpsPositionInfo;
-import com.github.evgeniymelnikov.gps.service.model.GpsPosition;
-import com.github.evgeniymelnikov.gps.service.repository.GpsPositionRepository;
 import com.github.evgeniymelnikov.gps.service.service.GpsPositionMessageHandler;
+import com.github.evgeniymelnikov.gps.service.service.GpsPositionService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
@@ -16,13 +14,15 @@ import java.util.UUID;
 @RequestMapping("/gps-tracker")
 public class GpsPositionController {
 
-    private final GpsPositionRepository gpsPositionRepository;
     private final GpsPositionMessageHandler gpsPositionMessageHandler;
+    private final GpsPositionService gpsPositionService;
 
-    public GpsPositionController(GpsPositionRepository gpsPositionRepository,
-                                 @Qualifier("gpsPositionHandlerFlux") GpsPositionMessageHandler gpsPositionMessageHandler) {
-        this.gpsPositionRepository = gpsPositionRepository;
+    public GpsPositionController(
+        @Qualifier("gpsPositionHandlerFlux") GpsPositionMessageHandler gpsPositionMessageHandler,
+        GpsPositionService gpsPositionService
+    ) {
         this.gpsPositionMessageHandler = gpsPositionMessageHandler;
+        this.gpsPositionService = gpsPositionService;
     }
 
     @PostMapping
@@ -35,7 +35,7 @@ public class GpsPositionController {
 
     @GetMapping("/{extId}")
     public Flux<GpsPositionInfo> getByExtId(@PathVariable UUID extId) {
-        return gpsPositionRepository.findAll(Example.of(new GpsPosition(null, extId, null)))
+        return gpsPositionService.findByExtIdLast200Records(extId)
                 .map(GpsPositionInfo::of);
     }
 }

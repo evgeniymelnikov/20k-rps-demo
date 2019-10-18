@@ -1,6 +1,11 @@
 let result = [];
+const $body = $("body");
+$(document).on({
+    ajaxStart: () => $body.addClass("loading"),
+    ajaxStop: () => $body.removeClass("loading")
+});
 $("div#filter_result").on("click", "div.result__item_container", (event) => {
-    $.get(`/${event.target.getAttribute("id")}/gps-position`, (data) => {
+    $.get(`/${event.currentTarget.getAttribute("id")}/gps-position`, (data) => {
         alert("Получены следующие данные: " + JSON.stringify(data));
     })
 });

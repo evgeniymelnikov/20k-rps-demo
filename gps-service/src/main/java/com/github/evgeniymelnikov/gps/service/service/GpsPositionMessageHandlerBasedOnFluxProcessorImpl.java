@@ -1,6 +1,5 @@
 package com.github.evgeniymelnikov.gps.service.service;
 
-import com.github.evgeniymelnikov.gps.service.config.MongoConfig;
 import com.mongodb.bulk.BulkWriteResult;
 import com.mongodb.client.model.InsertOneModel;
 import com.mongodb.client.model.WriteModel;
@@ -28,7 +27,7 @@ public class GpsPositionMessageHandlerBasedOnFluxProcessorImpl implements GpsPos
     private final FluxProcessor<Map<String, Object>, Map<String, Object>> processor
             = UnicastProcessor.create();
     private final FluxSink<Map<String, Object>> sink = processor.sink();
-    private final MongoConfig mongoConfig;
+    private final MongoCollection<Document> mongoCollection;
 
     @Value("${mongodb.insert_bulk_size}")
     private int bulkSize;
@@ -37,7 +36,6 @@ public class GpsPositionMessageHandlerBasedOnFluxProcessorImpl implements GpsPos
 
     @PostConstruct
     public void setUp() {
-        final MongoCollection<Document> mongoCollection = mongoConfig.mongoCollectionGpsPosition();
         processor.buffer(bulkSize).subscribe(jsonList -> {
             List<WriteModel<Document>> prepared = new ArrayList<>(bulkSize);
             jsonList.forEach(json ->
