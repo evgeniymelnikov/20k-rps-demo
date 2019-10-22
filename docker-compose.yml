@@ -9,26 +9,30 @@ services:
     restart: always
   gps-service:
     build: ./gps-service
-    container_name: application
+    container_name: gps-service
     ports: 
-        - 8081:8080
+        - 8087:8080
     environment:
         MONGO_HOST: db
-        MONGO_PORT: 27018
+        MONGO_PORT: 27017
         MONGO_INITDB_DATABASE: test_gps_tracker
     restart: always
     links:
         - db
-#  load-testing:
-#    image: jordi/ab:latest
-#    copy: './ab/ /opt/ab/'
-#    volumes:
-#        - /opt/ab/
-#    working_dir: '/opt/ab/'
-#    entrypoint:
-#        - '/usr/bin/ab ab -T application/json -p ./post.json -v 2 http://gps-service/gps-tracker'
-#    links:
-#        - gps-service
+  info-service:
+    build: ./info-service
+    container_name: info-service
+    ports:
+      - 8086:8080
+    environment:
+      GPS_SERVICE_URL: gps-service
+      GPS_SERVICE_PORT: 8080
+    restart: always
+    links:
+      - db
+      - gps-service
+
+# after that you can run the script 'wrk_load_testing_script.sh' in 'loadtesting' folder
     
            
         

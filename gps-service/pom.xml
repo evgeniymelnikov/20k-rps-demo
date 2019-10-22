@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <server.port>8090</server.port>
+        <server.port>8080</server.port>
         <spring.profiles.active></spring.profiles.active>
     </properties>
 
