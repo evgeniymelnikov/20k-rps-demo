@@ -1,4 +1,4 @@
-Successful test on 12200 rps. Have a problem with generating more request.
+Successful test on 21800 rps (2 desktops and 1 external service for load testing). Have a problem with generating more request.
 
 To start it:
 1. need package gps-service and info-service with profile 'dev-docker-compose'
